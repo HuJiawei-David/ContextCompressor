@@ -1,26 +1,134 @@
 @import "tailwindcss";
 
+/* ─── Dark-Mode Only Design Tokens ─────────────────────────────────── */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-primary: #0c0e14;
+  --bg-secondary: #13151d;
+  --bg-elevated: #1a1d28;
+  --bg-glass: rgba(22, 25, 36, 0.7);
+  --border-subtle: rgba(148, 163, 184, 0.08);
+  --border-accent: rgba(99, 102, 241, 0.3);
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --accent-indigo: #818cf8;
+  --accent-violet: #a78bfa;
+  --accent-emerald: #34d399;
+  --gradient-start: #6366f1;
+  --gradient-end: #a855f7;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: var(--bg-primary);
+  --color-foreground: var(--text-primary);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* ─── Base Styles ──────────────────────────────────────────────────── */
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Custom Scrollbar ─────────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.15);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.3);
+}
+
+/* ─── Glass Card ───────────────────────────────────────────────────── */
+
+.glass-card {
+  background: var(--bg-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+}
+
+/* ─── Gradient Text ────────────────────────────────────────────────── */
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Glow Effect ──────────────────────────────────────────────────── */
+
+.glow {
+  box-shadow:
+    0 0 20px rgba(99, 102, 241, 0.15),
+    0 0 60px rgba(99, 102, 241, 0.05);
+}
+
+.glow-text {
+  text-shadow: 0 0 40px rgba(99, 102, 241, 0.3);
+}
+
+/* ─── Code Preview Pane ────────────────────────────────────────────── */
+
+.code-pane {
+  background: #0d1017;
+  font-family: var(--font-mono, "JetBrains Mono", "Fira Code", monospace);
+  font-size: 13px;
+  line-height: 1.6;
+  color: #c9d1d9;
+}
+
+/* ─── Pulse Animation for Processing State ─────────────────────────── */
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--bg-elevated) 25%,
+    rgba(99, 102, 241, 0.08) 50%,
+    var(--bg-elevated) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* ─── Dropzone ─────────────────────────────────────────────────────── */
+
+.dropzone-active {
+  border-color: var(--accent-indigo) !important;
+  background: rgba(99, 102, 241, 0.05) !important;
+}
+
+/* ─── Ambient Background Orb ───────────────────────────────────────── */
+
+.ambient-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.12;
+  pointer-events: none;
+  z-index: 0;
 }
